@@ -25,6 +25,15 @@ enum RelayEventType {
   BLOCKED
   LEAK_DETECTED
   BOUNCED
+  SPAM_DETECTED
+}
+
+enum EmailStatus {
+  PENDING
+  DELIVERED
+  FAILED
+  SPAM
+  QUARANTINED
 }
 
 enum UserRole {
@@ -49,26 +58,31 @@ model User {
 }
 
 model Alias {
-  id          String      @id @default(cuid())
-  userId      String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  localPart   String
-  domain      String
-  merchant    String?
-  status      AliasStatus @default(ACTIVE)
-  forwardTo   String?
-  decoySeeded Boolean     @default(false)
-  decoyToken  String?
-  relayEvents RelayEvent[]
-  receiptTags ReceiptTag[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  killedAt    DateTime?
-  leakedAt    DateTime?
+  id               String      @id @default(cuid())
+  userId           String
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  localPart        String
+  domain           String
+  merchant         String?
+  status           AliasStatus @default(ACTIVE)
+  forwardTo        String?
+  decoySeeded      Boolean     @default(false)
+  decoyToken       String?
+  spamCount        Int         @default(0)
+  lastBreachCheck  DateTime?
+  breachDetected   Boolean     @default(false)
+  relayEvents      RelayEvent[]
+  receiptTags      ReceiptTag[]
+  emailMessages    EmailMessage[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  killedAt         DateTime?
+  leakedAt         DateTime?
 
   @@unique([localPart, domain])
   @@index([userId])
   @@index([status])
+  @@index([breachDetected])
   @@map("aliases")
 }
 
@@ -139,4 +153,46 @@ model AuditLog {
   @@index([userId])
   @@index([timestamp])
   @@map("audit_logs")
+}
+
+model EmailMessage {
+  id              String       @id @default(cuid())
+  aliasId         String
+  alias           Alias        @relation(fields: [aliasId], references: [id], onDelete: Cascade)
+  messageId       String       @unique  // Email Message-ID header
+  fromAddress     String
+  toAddress       String
+  subject         String?
+  textBody        String?      @db.Text
+  htmlBody        String?      @db.Text
+  headers         Json?
+  attachments     Json?        // Array of attachment metadata
+  spamScore       Float?
+  isSpam          Boolean      @default(false)
+  status          EmailStatus  @default(PENDING)
+  forwardedTo     String?
+  errorMessage    String?
+  receivedAt      DateTime     @default(now())
+  forwardedAt     DateTime?
+  read            Boolean      @default(false)
+
+  @@index([aliasId])
+  @@index([receivedAt])
+  @@index([isSpam])
+  @@index([status])
+  @@map("email_messages")
+}
+
+model BreachCheck {
+  id              String   @id @default(cuid())
+  email           String
+  breachName      String?
+  breachDate      DateTime?
+  dataClasses     Json?    // Array of compromised data types
+  verified        Boolean  @default(false)
+  checkedAt       DateTime @default(now())
+
+  @@index([email])
+  @@index([checkedAt])
+  @@map("breach_checks")
 }
