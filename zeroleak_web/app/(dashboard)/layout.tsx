@@ -20,36 +20,42 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               </Link>
             </div>
 
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden md:flex space-x-6">
               <Link
                 href="/dashboard"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition"
               >
                 Dashboard
               </Link>
               <Link
                 href="/dashboard/aliases"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition"
               >
                 Aliases
               </Link>
               <Link
                 href="/dashboard/inbox"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition"
               >
                 Inbox
               </Link>
               <Link
                 href="/dashboard/receipts"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition"
               >
                 Receipts
               </Link>
               <Link
                 href="/dashboard/audit"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition"
               >
                 Audit Log
+              </Link>
+              <Link
+                href="/dashboard/settings"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition"
+              >
+                Settings
               </Link>
             </nav>
 
