@@ -63,8 +63,28 @@ export default function InboxPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Inbox</h1>
-          <p className="mt-2 text-gray-600">Your received emails</p>
+          <h1 className="text-3xl font-bold text-gray-900">📬 Unified Inbox</h1>
+          <p className="mt-2 text-gray-600">
+            ALL emails from ALL your disposable addresses in one place
+          </p>
+        </div>
+      </div>
+
+      {/* Unified Inbox Explanation */}
+      <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-purple-900 mb-2">
+          ✨ One Inbox for Everything
+        </h3>
+        <p className="text-purple-800 text-sm mb-3">
+          No matter which disposable email address you use (amazon@..., netflix@..., linkedin@...),
+          <strong> all your emails appear here in one unified inbox</strong>. You don't need to check
+          multiple inboxes or remember which email you used where!
+        </p>
+        <div className="bg-white border border-purple-200 rounded-lg p-4">
+          <p className="text-sm text-purple-900">
+            <strong>💡 Pro Tip:</strong> Even if you replace a leaked email address, all the old emails
+            from that address stay here forever. Nothing is ever lost!
+          </p>
         </div>
       </div>
 

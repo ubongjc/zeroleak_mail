@@ -71,6 +71,10 @@ model Alias {
   spamCount        Int         @default(0)
   lastBreachCheck  DateTime?
   breachDetected   Boolean     @default(false)
+  replacedById     String?     // ID of the alias that replaced this one
+  replacesId       String?     // ID of the alias this one replaces
+  merchantGroup    String?     // Groups aliases for same merchant (e.g., "amazon")
+  notes            String?     // User notes about this alias
   relayEvents      RelayEvent[]
   receiptTags      ReceiptTag[]
   emailMessages    EmailMessage[]
@@ -83,6 +87,7 @@ model Alias {
   @@index([userId])
   @@index([status])
   @@index([breachDetected])
+  @@index([merchantGroup])
   @@map("aliases")
 }
 

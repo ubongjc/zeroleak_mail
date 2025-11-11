@@ -26,10 +26,36 @@ export default async function Home() {
           <p className="text-2xl text-gray-700 mb-4">
             Disposable Email Addresses with Transparent Auditing
           </p>
-          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-            Protect your real email from spam, leaks, and data breaches. Get new disposable
-            email addresses that automatically detect when they've been leaked or compromised.
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Create unique email addresses for each website. When one gets leaked or starts receiving spam,
+            <strong className="text-gray-900"> instantly replace it with one click</strong>.
+            All your emails stay in one unified inbox - nothing is ever lost!
           </p>
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto mb-12">
+            <div className="grid md:grid-cols-3 gap-6 text-left">
+              <div>
+                <div className="text-3xl mb-2">🛡️</div>
+                <h4 className="font-bold text-gray-900 mb-1">Hide Your Real Email</h4>
+                <p className="text-sm text-gray-600">
+                  Use a@zeroleak for Amazon, b@zeroleak for Netflix - merchants never see your real address
+                </p>
+              </div>
+              <div>
+                <div className="text-3xl mb-2">🔄</div>
+                <h4 className="font-bold text-gray-900 mb-1">Easy Replacement</h4>
+                <p className="text-sm text-gray-600">
+                  If leaked, click "Replace" to instantly create a new email. Update the merchant - done!
+                </p>
+              </div>
+              <div>
+                <div className="text-3xl mb-2">📬</div>
+                <h4 className="font-bold text-gray-900 mb-1">One Inbox</h4>
+                <p className="text-sm text-gray-600">
+                  All emails from all your disposable addresses in ONE place. Old emails never disappear!
+                </p>
+              </div>
+            </div>
+          </div>
 
           <div className="flex justify-center space-x-4">
             <Link
