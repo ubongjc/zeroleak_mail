@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  extensions = [pgvector(map: "vector")]
+}
+
+enum AliasStatus {
+  ACTIVE
+  KILLED
+  SUSPENDED
+  LEAKED
+}
+
+enum RelayEventType {
+  RECEIVED
+  FORWARDED
+  BLOCKED
+  LEAK_DETECTED
+  BOUNCED
+}
+
+enum UserRole {
+  USER
+  PREMIUM
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  clerkId       String    @unique
+  email         String    @unique
+  role          UserRole  @default(USER)
+  customDomain  String?
+  stripeCustomerId String?
+  subscriptionStatus String?
+  aliases       Alias[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Alias {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  localPart   String
+  domain      String
+  merchant    String?
+  status      AliasStatus @default(ACTIVE)
+  forwardTo   String?
+  decoySeeded Boolean     @default(false)
+  decoyToken  String?
+  relayEvents RelayEvent[]
+  receiptTags ReceiptTag[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  killedAt    DateTime?
+  leakedAt    DateTime?
+
+  @@unique([localPart, domain])
+  @@index([userId])
+  @@index([status])
+  @@map("aliases")
+}
+
+model RelayEvent {
+  id          String         @id @default(cuid())
+  aliasId     String
+  alias       Alias          @relation(fields: [aliasId], references: [id], onDelete: Cascade)
+  type        RelayEventType
+  fromAddress String?
+  toAddress   String?
+  subject     String?
+  bodySnippet String?
+  metadata    Json?
+  timestamp   DateTime       @default(now())
+
+  @@index([aliasId])
+  @@index([timestamp])
+  @@map("relay_events")
+}
+
+model ReceiptTag {
+  id         String   @id @default(cuid())
+  aliasId    String
+  alias      Alias    @relation(fields: [aliasId], references: [id], onDelete: Cascade)
+  docUrl     String
+  docCiphertext String?  // Encrypted blob
+  amount     Decimal? @db.Decimal(10, 2)
+  currency   String?  @default("USD")
+  taxYear    Int?
+  merchant   String?
+  category   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([aliasId])
+  @@index([taxYear])
+  @@map("receipt_tags")
+}
+
+model Domain {
+  id              String   @id @default(cuid())
+  userId          String
+  domain          String   @unique
+  verified        Boolean  @default(false)
+  dkimPublicKey   String?
+  dkimSelector    String?
+  spfRecord       String?
+  dmarcRecord     String?
+  verifiedAt      DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@map("domains")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String?
+  metadata  Json?
+  ipAddress String?
+  userAgent String?
+  timestamp DateTime @default(now())
+
+  @@index([userId])
+  @@index([timestamp])
+  @@map("audit_logs")
+}
