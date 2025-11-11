@@ -73,30 +73,44 @@ Create unlimited unique email addresses for different merchants, services, or pu
 ### 2. Unified Inbox
 
 **What it does:**
-View ALL emails from ALL your disposable addresses in one central location.
+View ALL emails from ALL your disposable addresses in one central location with powerful search capabilities.
 
 **Features:**
 - 📬 Single inbox for all aliases
-- 🔍 Search across all emails
-- 🏷️ Filter by alias, merchant, or status
+- 🔍 **Advanced Search** - Full-text search across subject, sender, and content
+- 🎯 **Smart Filters** - Filter by date range, merchant, attachments, spam status, and read/unread
 - 📊 Sorting (date, sender, status)
 - ✉️ Mark as read/unread
 - 🗑️ Delete emails
 - 📎 View attachments
 - 🔒 Secure email viewing
+- 💎 **Beautiful UI** - Gradient design with smooth animations and hover effects
+
+**Search Capabilities:**
+- Full-text search across all email fields
+- Date range filtering
+- Merchant-specific searches
+- Attachment filtering
+- Status filtering (read/unread, spam)
+- Collapsible advanced filters
+- Real-time search with loading states
 
 **Benefits:**
 - No need to check multiple inboxes
-- Easy to find any email
+- Instantly find any email with powerful search
 - All emails in chronological order
 - Never lose an email, even from killed aliases
+- Beautiful, intuitive interface
 
 **How to Use:**
 1. Go to Dashboard → Inbox
-2. See all emails from all your aliases
-3. Click on any email to read it
-4. Use filters to find specific emails
-5. Mark important emails as read
+2. See all emails from all your aliases in one unified view
+3. Use the search bar to find specific emails
+4. Click "+ Filters" to open advanced search options
+5. Apply filters (date, merchant, attachments, etc.)
+6. Click "Search" or press Enter
+7. Click on any email to read it
+8. Use quick filters (All, Unread, Spam) for fast filtering
 
 ---
 
@@ -908,6 +922,30 @@ GET /api/export/receipts?format=csv&taxYear=2024
 ---
 
 ## 📝 Changelog
+
+### Version 1.1.0 (2025-11-11)
+
+**Beautiful UI/UX Enhancements:**
+- ✨ **Advanced Email Search** - Full-text search with filters for date, sender, merchant, attachments, and status
+- 🎨 **Stunning Visual Design** - Beautiful gradients, animations, and modern UI throughout the application
+- 🌈 **Dashboard Redesign** - Colorful gradient hero banner, enhanced stat cards with hover effects, and smooth transitions
+- 📬 **Enhanced Inbox** - Beautiful search interface, collapsible advanced filters, and improved email list design
+- 🏠 **Landing Page Revamp** - Animated gradient hero, trust badges, enhanced CTAs, and delightful hover effects
+- 🎯 **Interactive Elements** - Scale-on-hover animations, gradient buttons, and smooth transitions
+- 💎 **Premium Design** - World-class, colorful, and delightful user experience
+- 📱 **Responsive Design** - Optimized for laptops, iPad web, Android web, and iPhone web
+- 🔄 **Loading States** - Beautiful animated spinners and empty state designs
+- ✨ **Gradient Status Badges** - Eye-catching status indicators with icons
+
+**Security Features:**
+- 🔒 **Advanced Security Scanning** - Phishing detection, malware indicators, and sender spoofing detection
+- 🛡️ **Comprehensive Threat Analysis** - Security scoring (0-100), suspicious link detection, and homograph attack detection
+- ⚠️ **Security Recommendations** - Contextual security advice based on detected threats
+
+**Monetization:**
+- 💰 **Premium Subscription System** - Free, Premium ($9.99/mo), and Business ($29.99/mo) tiers
+- 📊 **Usage Tracking** - Alias count, storage usage, and feature access control
+- 💳 **Stripe Integration** - Ready for payment processing
 
 ### Version 1.0.0 (2025-11-11)
 
